@@ -23,16 +23,12 @@ class Game
     (i != j) && (i / 9 == j / 9 || i % 9 == j % 9 || box[i] == box[j])
   end
 
-  def neighbours
-    @neighbours ||= (0..80).map {|i| (0..80).select {|j| neighbour?(i, j)}}
-  end
-
   def taken(index, number)
-    neighbours[index].any? {|i| board[i] == number}
+    @neighbours ||= (0..80).map {|i| (0..80).select {|j| neighbour?(i, j)}}
+    @neighbours[index].any? {|i| board[i] == number}
   end
 end
 
 game = Game.new
 game.solve
 puts game.board.each_slice(9).map{|s| s.join(' ')}
-
